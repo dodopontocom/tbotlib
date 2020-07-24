@@ -9,6 +9,26 @@ _COMMAND="${1:-test}"
 _OPTIONS=("it's ON" "it's OFF")
 #======================================================================================
 
+init.bool_button() {
+	local button1 keyboard title
+	title="*Switch:*"
+
+	button1=''
+
+	ShellBot.InlineKeyboardButton --button 'button1' \
+		--text "${_OPTIONS[0]}" \
+		--callback_data "tick_to_false.bool_button" \
+		--line 1
+	
+	keyboard="$(ShellBot.InlineKeyboardMarkup -b 'button1')"
+
+	ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
+	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
+				--text "$(echo -e ${title})" \
+				--parse_mode markdown \
+                --reply_markup "$keyboard"
+}
+
 tick_to_false.bool_button() {
 	local button2 keyboard2
 
@@ -16,7 +36,7 @@ tick_to_false.bool_button() {
 	
 	ShellBot.InlineKeyboardButton --button 'button2' \
 		--text "${_OPTIONS[1]}" \
-		--callback_data "tick_to_true_bool_button" \
+		--callback_data "tick_to_true.bool_button" \
 		--line 1
 
 	keyboard2="$(ShellBot.InlineKeyboardMarkup -b 'button2')"
@@ -35,7 +55,7 @@ tick_to_true.bool_button() {
 
 	ShellBot.InlineKeyboardButton --button 'button3' \
 		--text "${_OPTIONS[0]}" \
-		--callback_data "tick_to_false_bool_button" \
+		--callback_data "tick_to_false.bool_button" \
 		--line 1
 
     keyboard3="$(ShellBot.InlineKeyboardMarkup -b 'button3')"

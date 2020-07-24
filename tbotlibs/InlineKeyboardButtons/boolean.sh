@@ -41,7 +41,7 @@ tick_to_false.bool_button() {
 
 	keyboard2="$(ShellBot.InlineKeyboardMarkup -b 'button2')"
 
-	ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it true..."
+	ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it off..."
 
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
 				--message_id ${callback_query_message_message_id[$id]} \
@@ -60,7 +60,7 @@ tick_to_true.bool_button() {
 
     keyboard3="$(ShellBot.InlineKeyboardMarkup -b 'button3')"
 
-    ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it false..."
+    ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it on..."
 
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
                                 --message_id ${callback_query_message_message_id[$id]} \

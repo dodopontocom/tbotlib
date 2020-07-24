@@ -155,15 +155,15 @@ helper.get_api() {
 
   check_new_version=$(curl -sS ${API_VERSION_RAW_URL} | grep VERSÃO | grep -o [0-9].*)
 
-    if [[ -f "${BASEDIR}/tbotlibs/ShellBot.sh" ]]; then
-        current_version=$(cat ${BASEDIR}/tbotlibs/ShellBot.sh | grep VERSÃO | grep -o [0-9].*)
+    if [[ -f "${BASEDIR}/tbotlibs/API/ShellBot.sh" ]]; then
+        current_version=$(cat ${BASEDIR}/tbotlibs/API/ShellBot.sh | grep VERSÃO | grep -o [0-9].*)
         if [[ "${current_version}" != "${check_new_version}" ]]; then
 
             echo.INFO "ShellBot API - Getting the newest version '${check_new_version}'"
             git clone --quiet ${API_GIT_URL} ${tmp_folder} > /dev/null
 
             echo.INFO "Providing the API for the bot's project folder"
-            cp ${tmp_folder}/ShellBot.sh ${BASEDIR}/tbotlibs/
+            cp ${tmp_folder}/ShellBot.sh ${BASEDIR}/tbotlibs/API/
             rm -fr ${tmp_folder}
 
         else
@@ -174,7 +174,7 @@ helper.get_api() {
         git clone --quiet ${API_GIT_URL} ${tmp_folder} > /dev/null
 
         echo.INFO "Providing the API for the bot's project folder"
-        cp ${tmp_folder}/ShellBot.sh ${BASEDIR}/tbotlibs
+        cp ${tmp_folder}/ShellBot.sh ${BASEDIR}/tbotlibs/API
         rm -fr ${tmp_folder}
     fi
 }

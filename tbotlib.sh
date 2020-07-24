@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#VERSION:   build-v0.1
+
+LIB_BRANCH="lib"
+LIB_REPO="https://github.com/dodopontocom/odroid-contas.git"
+LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/odroid-contas/lib/tbotlib.sh"
+LIBS_FOLDER="${BASEDIR}/tbotlibs/"
+tmp_folder=$(mktemp -d)
+
+check_new_version=$(curl -sS ${LIB_RAW_URL} | grep -m1 VERSION | cut -d':' -f2)
+current_version=$(cat ${BASEDIR}/tbotlib.sh | grep -m1 VERSION | cut -d':' -f2)
+if [[ "${current_version}" != "${check_new_version}" ]]; then
+    echo "[WARN] tbotlib is out of date, we recomend to get new version."
+    echo "[INFO] tbotlib script: ${LIB_RAW_URL}"
+else
+    echo "[INFO] tbotlib is up to date!"
+fi
+
+source ${BASEDIR}/.definitions.sh || exit -1
+
+if [[ ! -d ${BASEDIR}/tbotlibs ]]; then
+    git clone --quiet --single-branch --branch ${LIB_BRANCH} ${LIB_REPO} ${tmp_folder} > /dev/null
+    cp -r ${tmp_folder}/tbotlibs ${LIBS_FOLDER}
+    rm -fr ${tmp_folder}    
+fi
+
+[[ $(cat ${BASEDIR}/.gitignore | grep tbotlibs) ]] || \
+    echo -e "\n\n#Telegram bot Libs\ntbotlibs" >> ${BASEDIR}/.gitignore
+
+function_list=($(find ${BASEDIR}/tbotlibs -name "*.sh"))
+for f in ${function_list[@]}; do
+    source ${f}
+    echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(cat ${f} | grep "() {$" | wc -l)) functions you can use from."
+done
+
+helper.validate_vars TELEGRAM_TOKEN
+
+helper.get_api
+exitOnError "Error while trying to download API Shellbot" $?
+
+echo.SUCCESS "Telegram bot lib is successfully loaded"

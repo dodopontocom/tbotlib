@@ -27,6 +27,7 @@ init.bool_button() {
 				--text "$(echo -e ${title})" \
 				--parse_mode markdown \
                 --reply_markup "$keyboard"
+    echo "=-=-=- from init ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
 tick_to_false.bool_button() {
@@ -46,6 +47,7 @@ tick_to_false.bool_button() {
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
 				--message_id ${callback_query_message_message_id[$id]} \
                             	--reply_markup "$keyboard2"
+    echo "=-=-=- from false ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
 tick_to_true.bool_button() {
@@ -65,4 +67,5 @@ tick_to_true.bool_button() {
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
                                 --message_id ${callback_query_message_message_id[$id]} \
                                 --reply_markup "$keyboard3"
+    echo "=-=-=- from true ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }

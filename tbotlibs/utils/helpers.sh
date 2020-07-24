@@ -174,7 +174,7 @@ helper.get_api() {
         git clone --quiet ${API_GIT_URL} ${tmp_folder} > /dev/null
 
         echo.INFO "Providing the API for the bot's project folder"
-        cp ${tmp_folder}/ShellBot.sh ${BASEDIR}/tbotlibs/API
+        cp ${tmp_folder}/ShellBot.sh ${BASEDIR}/tbotlibs/API/
         rm -fr ${tmp_folder}
     fi
 }

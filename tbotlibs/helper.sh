@@ -30,9 +30,6 @@ exitOnError() {
 
 # Verifica se variáveis necessárias estão exportadas no sistema
 helper.validate_vars() {
-  local vars_list=($@)
-        
-  for v in $(echo ${vars_list[@]}); do
     local _result=0
     for v in ${@}; do
         if [ -z "${!v}" ]; then

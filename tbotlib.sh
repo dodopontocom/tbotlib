@@ -35,10 +35,9 @@ for f in ${function_list[@]}; do
     echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(cat ${f} | grep "() {$" | wc -l)) functions you can use from."
 done
 
-helper.validate_vars TELEGRAM_TOKEN
-
 helper.get_api
 exitOnError "Error while trying to download API Shellbot" $?
+helper.validate_vars TELEGRAM_TOKEN
 
 source ${BASEDIR}/tbotlibs/ShellBot.sh
 

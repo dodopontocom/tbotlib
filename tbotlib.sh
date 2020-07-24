@@ -2,9 +2,12 @@
 
 #VERSION:   build-v0.1
 
+export API_GIT_URL="https://github.com/shellscriptx/shellbot.git"
+export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shellbot/master/ShellBot.sh"
+
 LIB_BRANCH="lib"
-LIB_REPO="https://github.com/dodopontocom/odroid-contas.git"
-LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/odroid-contas/lib/tbotlib.sh"
+LIB_REPO="https://github.com/dodopontocom/tbotlib.git"
+LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/tbotlib/master/tbotlib.sh"
 LIBS_FOLDER="${BASEDIR}/tbotlibs/"
 tmp_folder=$(mktemp -d)
 
@@ -16,8 +19,6 @@ if [[ "${current_version}" != "${check_new_version}" ]]; then
 else
     echo "[INFO] tbotlib is up to date!"
 fi
-
-source ${BASEDIR}/.definitions.sh || exit -1
 
 if [[ ! -d ${BASEDIR}/tbotlibs ]]; then
     git clone --quiet --single-branch --branch ${LIB_BRANCH} ${LIB_REPO} ${tmp_folder} > /dev/null

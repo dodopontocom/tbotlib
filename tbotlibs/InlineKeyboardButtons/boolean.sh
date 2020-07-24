@@ -27,6 +27,7 @@ init.bool_button() {
 				--text "$(echo -e ${title})" \
 				--parse_mode markdown \
                 --reply_markup "$keyboard"
+    callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_false.bool_button"
     echo "=-=-=- from init ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 

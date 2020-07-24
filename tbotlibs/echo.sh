@@ -12,3 +12,7 @@ echo.ERROR() {
     local message=$1
     echo -e "[ERROR] ${message}"
 }
+echo.WARN() {
+    local message=$1
+    echo -e "[WARN] ${message}"
+}

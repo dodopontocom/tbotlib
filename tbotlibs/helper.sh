@@ -33,14 +33,14 @@ helper.validate_vars() {
   local vars_list=($@)
         
   for v in $(echo ${vars_list[@]}); do
-    export | grep ${v} > /dev/null
-    result=$?
-    if [[ ${result} -ne 0 ]]; then
-      echo "Dependency of ${v} is missing"
-      echo "Exiting..."
-      exit -1
-    fi
-  done
+    local _result=0
+    for v in ${@}; do
+        if [ -z "${!v}" ]; then
+            echo.WARN "Environment varirable '${v}' is missing!"
+            ((_result+=1))
+        fi
+    done
+    return ${_result}
 }
 
 # Faz 'replace' de variáveis pelo seus valores se foram corretamente declarados

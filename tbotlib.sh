@@ -2,9 +2,12 @@
 
 #VERSION:   build-v0.1
 
-LIB_BRANCH="lib"
-LIB_REPO="https://github.com/dodopontocom/odroid-contas.git"
-LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/odroid-contas/lib/tbotlib.sh"
+export API_GIT_URL="https://github.com/shellscriptx/shellbot.git"
+export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shellbot/master/ShellBot.sh"
+
+LIB_BRANCH="master"
+LIB_REPO="https://github.com/dodopontocom/tbotlib.git"
+LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/tbotlib/master/tbotlib.sh"
 LIBS_FOLDER="${BASEDIR}/tbotlibs/"
 tmp_folder=$(mktemp -d)
 
@@ -17,8 +20,6 @@ else
     echo "[INFO] tbotlib is up to date!"
 fi
 
-source ${BASEDIR}/.definitions.sh || exit -1
-
 if [[ ! -d ${BASEDIR}/tbotlibs ]]; then
     git clone --quiet --single-branch --branch ${LIB_BRANCH} ${LIB_REPO} ${tmp_folder} > /dev/null
     cp -r ${tmp_folder}/tbotlibs ${LIBS_FOLDER}
@@ -26,17 +27,19 @@ if [[ ! -d ${BASEDIR}/tbotlibs ]]; then
 fi
 
 [[ $(cat ${BASEDIR}/.gitignore | grep tbotlibs) ]] || \
-    echo -e "\n\n#Telegram bot Libs\ntbotlibs" >> ${BASEDIR}/.gitignore
+    echo -e "\n\n#Telegram bot Libs\ntbotlibs\n-" >> ${BASEDIR}/.gitignore
 
-function_list=($(find ${BASEDIR}/tbotlibs -name "*.sh"))
-for f in ${function_list[@]}; do
+libs_list=($(find ${BASEDIR}/tbotlibs -name "*.sh"))
+for f in ${libs_list[@]}; do
     source ${f}
     echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(cat ${f} | grep "() {$" | wc -l)) functions you can use from."
 done
 
-helper.validate_vars TELEGRAM_TOKEN
-
 helper.get_api
 exitOnError "Error while trying to download API Shellbot" $?
+helper.validate_vars TELEGRAM_TOKEN
+exitOnError "You must configure and export 'TELEGRAM_TOKEN' variable" $?
 
+source ${BASEDIR}/tbotlibs/API/ShellBot.sh
+ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
 echo.SUCCESS "Telegram bot lib is successfully loaded"

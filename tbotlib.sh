@@ -27,7 +27,7 @@ if [[ ! -d ${BASEDIR}/tbotlibs ]]; then
 fi
 
 [[ $(cat ${BASEDIR}/.gitignore | grep tbotlibs) ]] || \
-    echo -e "\n\n#Telegram bot Libs\ntbotlibs" >> ${BASEDIR}/.gitignore
+    echo -e "\n\n#Telegram bot Libs\ntbotlibs\n-" >> ${BASEDIR}/.gitignore
 
 libs_list=($(find ${BASEDIR}/tbotlibs -name "*.sh"))
 for f in ${libs_list[@]}; do

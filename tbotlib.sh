@@ -40,4 +40,6 @@ helper.validate_vars TELEGRAM_TOKEN
 helper.get_api
 exitOnError "Error while trying to download API Shellbot" $?
 
+source ${BASEDIR}/tbotlibs/ShellBot.sh
+
 echo.SUCCESS "Telegram bot lib is successfully loaded"

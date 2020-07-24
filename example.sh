@@ -7,8 +7,6 @@ export TELEGRAM_TOKEN=<your_telegram_bot_token>
 
 source ${BASEDIR}/tbotlib.sh
 
-ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
-
 while : ; do
         ShellBot.getUpdates --limit 100 --offset $(ShellBot.OffsetNext) --timeout 30
             

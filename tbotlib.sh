@@ -38,7 +38,7 @@ done
 helper.get_api
 exitOnError "Error while trying to download API Shellbot" $?
 helper.validate_vars TELEGRAM_TOKEN
-exitOnError "You must configure and export TELEGRAM_TOKEN variable" $?
+exitOnError "You must configure and export 'TELEGRAM_TOKEN' variable" $?
 
 source ${BASEDIR}/tbotlibs/ShellBot.sh
 

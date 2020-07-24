@@ -29,8 +29,8 @@ fi
 [[ $(cat ${BASEDIR}/.gitignore | grep tbotlibs) ]] || \
     echo -e "\n\n#Telegram bot Libs\ntbotlibs" >> ${BASEDIR}/.gitignore
 
-function_list=($(find ${BASEDIR}/tbotlibs -name "*.sh"))
-for f in ${function_list[@]}; do
+libs_list=($(find ${BASEDIR}/tbotlibs -name "*.sh"))
+for f in ${libs_list[@]}; do
     source ${f}
     echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(cat ${f} | grep "() {$" | wc -l)) functions you can use from."
 done

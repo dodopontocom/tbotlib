@@ -3,7 +3,7 @@
 export BASEDIR="$(cd $(dirname ${BASH_SOURCE[0]}) >/dev/null 2>&1 && pwd)"
 
 #DO NEVER COMMIT THIS TOKEN TO GIT
-export TELEGRAM_TOKEN=<your_telegram_bot_token>
+export TELEGRAM_TOKEN="<your_telegram_bot_token>"
 
 source ${BASEDIR}/tbotlib.sh
 

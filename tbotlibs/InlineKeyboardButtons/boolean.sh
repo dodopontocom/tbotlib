@@ -6,7 +6,7 @@ _COMMAND="${1:-test}"
 
 #======================== Comment one or another to see the diferrence ================
 #_OPTIONS=(${_FALSE} ${_TRUE})
-_OPTIONS=("it's ON" "it's OFF")
+_OPTIONS=("it's OFF" "it's ON")
 #======================================================================================
 
 init.bool_button() {
@@ -18,7 +18,7 @@ init.bool_button() {
 
 	ShellBot.InlineKeyboardButton --button 'button1' \
 		--text "${_OPTIONS[0]}" \
-		--callback_data "tick_to_false.${name}" \
+		--callback_data "tick_to_one.${name}" \
 		--line 1
 	
 	keyboard="$(ShellBot.InlineKeyboardMarkup -b 'button1')"
@@ -32,19 +32,20 @@ init.bool_button() {
     echo "=-=-=- from init ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
-tick_to_false.bool_button() {
-	local button2 keyboard2
+tick_to_one.bool_button() {
+	local button2 keyboard2 name
 
+    name=$1
 	button2=''
 	
 	ShellBot.InlineKeyboardButton --button 'button2' \
 		--text "${_OPTIONS[1]}" \
-		--callback_data "tick_to_true.bool_button" \
+		--callback_data "tick_to_zero.${name}" \
 		--line 1
 
 	keyboard2="$(ShellBot.InlineKeyboardMarkup -b 'button2')"
 
-	ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it off..."
+	ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it on..."
 
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
 				--message_id ${callback_query_message_message_id[$id]} \
@@ -52,19 +53,20 @@ tick_to_false.bool_button() {
     echo "=-=-=- from false ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
-tick_to_true.bool_button() {
-    local button3 keyboard3
+tick_to_zero.bool_button() {
+    local button3 keyboard3 name
 
+    name=$1
     button3=''
 
 	ShellBot.InlineKeyboardButton --button 'button3' \
 		--text "${_OPTIONS[0]}" \
-		--callback_data "tick_to_false.bool_button" \
+		--callback_data "tick_to_one.${name}" \
 		--line 1
 
     keyboard3="$(ShellBot.InlineKeyboardMarkup -b 'button3')"
 
-    ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it on..."
+    ShellBot.answerCallbackQuery --callback_query_id ${callback_query_id[$id]} --text "turning it off..."
 
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
                                 --message_id ${callback_query_message_message_id[$id]} \

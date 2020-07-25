@@ -10,14 +10,15 @@ _OPTIONS=("it's ON" "it's OFF")
 #======================================================================================
 
 init.bool_button() {
-	local button1 keyboard title
+	local button1 keyboard title name
+    name=$1
 	title="*Switch:*"
 
 	button1=''
 
 	ShellBot.InlineKeyboardButton --button 'button1' \
 		--text "${_OPTIONS[0]}" \
-		--callback_data "tick_to_false.bool_button" \
+		--callback_data "tick_to_false.${name}" \
 		--line 1
 	
 	keyboard="$(ShellBot.InlineKeyboardMarkup -b 'button1')"

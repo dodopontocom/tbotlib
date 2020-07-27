@@ -18,7 +18,8 @@ echo.WARN() {
 }
 echo.PRETTY() {
     echo
-    _echo 1 "" "\e[1m       ${@}"
+    _echo 1 "" "\e[1m   ${@}"
+    echo
 }
 _echo() {
 

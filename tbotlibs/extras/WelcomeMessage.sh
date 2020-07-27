@@ -34,7 +34,7 @@ WelcomeMessage.usage() {
     echo.PRETTY "WelcomeMessage sends a message to new member of a group"
     echo.PRETTY "usage: WelcomeMessage.send --message \"<YOUR WELCOME MESSAGE>\""
     echo.PRETTY "option: '--message' \"<your welcome message>\" ~> (required)"
-    echo.PRETTY "option: '--short' ~> when you standard message header (optional)"
+    echo.PRETTY "option: '--short' ~> when you want to avoid standard message header (optional)"
 
     # local param=$(getopt --name "$FUNCNAME" --options 't:mfsu:l:o:r:d:' \
     #     --longoptions 'token:,

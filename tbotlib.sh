@@ -5,7 +5,7 @@
 export API_GIT_URL="https://github.com/shellscriptx/shellbot.git"
 export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shellbot/master/ShellBot.sh"
 
-LIB_BRANCH="master"
+LIB_BRANCH="develop"
 LIB_REPO="https://github.com/dodopontocom/tbotlib.git"
 LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/tbotlib/master/tbotlib.sh"
 LIBS_FOLDER="${BASEDIR}/tbotlibs/"

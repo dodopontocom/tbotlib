@@ -5,7 +5,7 @@ WelcomeMessage.send() {
     local message user_message short
     while [ "${1}" != "" ]; do
         case "${1}" in
-            "--message") user_message="$2"; shift 2 ;;
+            "--message") user_message="${2}"; shift 2 ;;
             "--short") short="on"; shift 1 ;;
             *) WelcomeMessage.usage ;;
         esac

@@ -49,7 +49,8 @@ done
 for ex in $(cat ${CALLER_SCRIPT_PATH} | grep "tbotlib\.use\."); do
     lib_path="${LIB_DIR}/tbotlibs/extras/$(echo ${ex} | cut -d'.' -f3).sh"
     source ${lib_path}
-    echo.INFO "(manual imported) Library '$(echo ${ex} | cut -d'.' -f3)' is now loaded. ($(funcCount "${lib_path}")) functions you can use from."
+    echo.INFO "(manual import) Library '$(echo ${ex} | cut -d'.' -f3)' is now loaded. ($(funcCount "${lib_path}")) functions you can use from."
+    alias "${ex}"="source ${lib_path}"
 done
 
 helper.get_api

@@ -48,9 +48,15 @@ done
 
 for ex in $(cat ${CALLER_SCRIPT_PATH} | grep "tbotlib\.use\."); do
     lib_path="${LIB_DIR}/tbotlibs/extras/$(echo ${ex} | cut -d'.' -f3).sh"
-    source ${lib_path}
-    echo.INFO "(manual import) Library '$(echo ${ex} | cut -d'.' -f3)' is now loaded. ($(funcCount "${lib_path}")) functions you can use from."
-    alias "${ex}"="source ${lib_path}"
+    source ${lib_path} >/dev/null 2>&1
+    if [[ "$?" -ne "0" ]]; then
+        echo.ERROR "$(echo ${ex} | cut -d'.' -f3) is not a recognized tbotlib"
+        echo.PRETTY "Check our available libs at 'https://github.com/dodopontocom/tbotlib/blob/${LIB_BRANCH}/README.md'"
+        exit -1
+    else        
+        echo.INFO "(manual import) Library '$(echo ${ex} | cut -d'.' -f3)' is now loaded. ($(funcCount "${lib_path}")) functions you can use from."
+        alias "${ex}"="source ${lib_path}"
+    fi
 done
 
 helper.get_api

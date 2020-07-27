@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#VERSION:   build-v0.1-alpha
+#VERSION:build-v0.1-alpha
 
 export API_GIT_URL="https://github.com/shellscriptx/shellbot.git"
 export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shellbot/master/ShellBot.sh"
@@ -15,9 +15,11 @@ tmp_folder=$(mktemp -d)
 check_new_version=$(curl -sS ${LIB_RAW_URL} | grep -m1 VERSION | cut -d':' -f2)
 current_version=$(cat ${LIB_DIR}/tbotlib.sh | grep -m1 VERSION | cut -d':' -f2)
 if [[ "${current_version}" != "${check_new_version}" ]]; then
-    echo "[WARN] tbotlib is out of date, we recomend to get new version ${check_new_version}"
-    echo "[INFO] tbotlib script: ${LIB_RAW_URL}"
+    echo "[INFO] tbotlib version: '${current_version}'"
+    echo "[WARN] new version is available (version: '${check_new_version}')"
+    echo "[INFO] get new version (script: ${LIB_RAW_URL})"
 else
+    echo "[INFO] tbotlib version: '${current_version}'"
     echo "[INFO] tbotlib is up to date!"
 fi
 

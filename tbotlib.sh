@@ -14,7 +14,7 @@ tmp_folder=$(mktemp -d)
 
 check_new_version=$(curl -sS ${LIB_RAW_URL} | grep -m1 VERSION | cut -d':' -f2)
 current_version=$(cat ${LIB_DIR}/tbotlib.sh | grep -m1 VERSION | cut -d':' -f2)
-echo "[INFO] Getting tbotlib from original branch: '${LIB_BRANCH}'"
+echo "[INFO] getting tbotlib from original branch: '${LIB_BRANCH}'"
 echo "[INFO] tbotlib version: '${current_version}'"
 if [[ "${current_version}" != "${check_new_version}" ]]; then
     echo "[WARN] new version is available (version: '${check_new_version}')"

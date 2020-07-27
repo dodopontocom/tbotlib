@@ -6,6 +6,7 @@ export API_GIT_URL="https://github.com/shellscriptx/shellbot.git"
 export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shellbot/master/ShellBot.sh"
 
 LIB_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") >/dev/null 2>&1 && pwd)
+CALLER_SCRIPT_PATH="${LIB_DIR}/$(basename "${BASH_SOURCE[1]}")"
 LIB_BRANCH="develop"
 LIB_REPO="https://github.com/dodopontocom/tbotlib.git"
 LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/tbotlib/${LIB_BRANCH}/tbotlib.sh"
@@ -37,18 +38,18 @@ if [[ ! $(cat ${LIB_DIR}/.gitignore | grep tbotlibs) ]] && \
     echo -e "\n\n#Telegram bot Libs\ntbotlibs\n-" >> ${LIB_DIR}/.gitignore
 fi
 
-funcCount() { cat ${1} | grep "() {$" | wc -l; }
+funcCount() { cat "${1}" | grep "() {$" | wc -l; }
 
-libs_list=($(find ${LIB_DIR}/tbotlibs -name "*.sh"))
+libs_list=($(find ${LIB_DIR}/tbotlibs -name "*.sh" -not -path "*extras/*"))
 for f in ${libs_list[@]}; do
     source ${f}
-    echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(funcCount ${f})) functions you can use from."
+    echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(funcCount "${f}")) functions you can use from."
 done
 
-prepare_extras=($(find ${LIB_DIR}/tbotlibs/extras -name "*.sh"))
-for e in ${prepare_extras[@]}; do
-    alias "tbotlib.use.${e}"="source ${e}"
-    echo "[INFO] Library '$(basename ${e%%.*})' is now loaded. ($(funcCount ${e})) functions you can use from."
+for ex in $(cat ${CALLER_SCRIPT_PATH} | grep "tbotlib\.use\."); do
+    lib_path="${LIB_DIR}/tbotlibs/extras/$(echo ${ex} | cut -d'.' -f3).sh"
+    source ${lib_path}
+    echo.INFO "(manual imported) Library '$(echo ${ex} | cut -d'.' -f3)' is now loaded. ($(funcCount "${lib_path}")) functions you can use from."
 done
 
 helper.get_api
@@ -57,5 +58,6 @@ helper.validate_vars TELEGRAM_TOKEN
 exitOnError "You must configure and export 'TELEGRAM_TOKEN' variable" $?
 
 source ${LIB_DIR}/tbotlibs/API/ShellBot.sh
-ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
 echo.SUCCESS "Telegram bot lib is successfully loaded"
+ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
+echo.SUCCESS "Telegram bot is up and running... enjoy"

@@ -5,8 +5,8 @@ WelcomeMessage.send() {
 }
 
 WelcomeMessage.usage() {
-    echo "WelcomeMessage sends a message to new member of a group"
-    echo "usage: WelcomeMessage.send \"<YOUR WELCOME MESSAGE>\""
+    echo.PRETTY "WelcomeMessage sends a message to new member of a group"
+    echo.PRETTY "usage: WelcomeMessage.send \"<YOUR WELCOME MESSAGE>\""
 
     # local param=$(getopt --name "$FUNCNAME" --options 't:mfsu:l:o:r:d:' \
     #     --longoptions 'token:,

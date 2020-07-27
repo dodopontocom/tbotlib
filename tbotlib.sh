@@ -8,18 +8,18 @@ export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shell
 LIB_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") >/dev/null 2>&1 && pwd)
 LIB_BRANCH="develop"
 LIB_REPO="https://github.com/dodopontocom/tbotlib.git"
-LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/tbotlib/master/tbotlib.sh"
+LIB_RAW_URL="https://raw.githubusercontent.com/dodopontocom/tbotlib/${LIB_BRANCH}/tbotlib.sh"
 LIBS_FOLDER="${LIB_DIR}/tbotlibs/"
 tmp_folder=$(mktemp -d)
 
 check_new_version=$(curl -sS ${LIB_RAW_URL} | grep -m1 VERSION | cut -d':' -f2)
 current_version=$(cat ${LIB_DIR}/tbotlib.sh | grep -m1 VERSION | cut -d':' -f2)
+echo "[INFO] Getting tbotlib from original branch: '${LIB_BRANCH}'"
+echo "[INFO] tbotlib version: '${current_version}'"
 if [[ "${current_version}" != "${check_new_version}" ]]; then
-    echo "[INFO] tbotlib version: '${current_version}'"
     echo "[WARN] new version is available (version: '${check_new_version}')"
     echo "[INFO] get new version (script: ${LIB_RAW_URL})"
 else
-    echo "[INFO] tbotlib version: '${current_version}'"
     echo "[INFO] tbotlib is up to date!"
 fi
 

@@ -17,10 +17,19 @@ echo.WARN() {
     echo -e "[WARN] ${message}"
 }
 echo.PRETTY() {
+    echo
+    _echo 1 "" "\e[1m       ${@}"
+}
+_echo() {
+
+    local _stdRedirect="${1}"; shift
+    local _textToPrint="${1}"; shift
     local _text="${@/'\n'/$'\n'}"
-    echo
-    for i in ${@}; do
-        echo "\e[1m       ${i}"
+
+    # For each line
+    local IFS=$'\n'
+    for _line in ${_text[@]}; do
+        echo -e "${_textToPrint} ${_line}" >&"${_stdRedirect}"
+        _textToPrint="   "
     done
-    echo
 }

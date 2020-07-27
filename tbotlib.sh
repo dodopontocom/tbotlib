@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#VERSION:   build-v0.1
+#VERSION:   build-v0.1-alpha
 
 export API_GIT_URL="https://github.com/shellscriptx/shellbot.git"
 export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shellbot/master/ShellBot.sh"

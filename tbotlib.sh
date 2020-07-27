@@ -14,7 +14,6 @@ tmp_folder=$(mktemp -d)
 
 check_new_version=$(curl -sS ${LIB_RAW_URL} | grep -m1 VERSION | cut -d':' -f2)
 current_version=$(cat ${LIB_DIR}/tbotlib.sh | grep -m1 VERSION | cut -d':' -f2)
-echo "[INFO] getting tbotlib from original branch: '${LIB_BRANCH}'"
 echo "[INFO] tbotlib version: '${current_version}'"
 if [[ "${current_version}" != "${check_new_version}" ]]; then
     echo "[WARN] new version is available (version: '${check_new_version}')"
@@ -25,9 +24,12 @@ fi
 
 if [[ ! -d ${LIB_DIR}/tbotlibs ]] && \
         [[ "$(git config --get remote.origin.url)" != "${LIB_REPO}" ]]; then
+    echo "[INFO] getting tbotlib from original branch: '${LIB_BRANCH}'"
     git clone --quiet --single-branch --branch ${LIB_BRANCH} ${LIB_REPO} ${tmp_folder} > /dev/null
     cp -r ${tmp_folder}/tbotlibs ${LIBS_FOLDER}
-    rm -fr ${tmp_folder}    
+    rm -fr ${tmp_folder}
+else
+    echo "[INFO] getting tbotlib from local repo..."
 fi
 
 if [[ ! $(cat ${LIB_DIR}/.gitignore | grep tbotlibs) ]] && \
@@ -41,6 +43,12 @@ libs_list=($(find ${LIB_DIR}/tbotlibs -name "*.sh"))
 for f in ${libs_list[@]}; do
     source ${f}
     echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(funcCount ${f})) functions you can use from."
+done
+
+prepare_extras=($(find ${LIB_DIR}/tbotlibs/extras -name "*.sh"))
+for e in ${prepare_extras[@]}; do
+    alias "tbotlib.use.${e}"="source ${e}"
+    echo "[INFO] Library '$(basename ${e%%.*})' is now loaded. ($(funcCount ${e})) functions you can use from."
 done
 
 helper.get_api

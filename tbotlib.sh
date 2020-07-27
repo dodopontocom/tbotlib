@@ -35,10 +35,12 @@ if [[ ! $(cat ${LIB_DIR}/.gitignore | grep tbotlibs) ]] && \
     echo -e "\n\n#Telegram bot Libs\ntbotlibs\n-" >> ${LIB_DIR}/.gitignore
 fi
 
+funcCount() { cat ${1} | grep "() {$" | wc -l; }
+
 libs_list=($(find ${LIB_DIR}/tbotlibs -name "*.sh"))
 for f in ${libs_list[@]}; do
     source ${f}
-    echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(cat ${f} | grep "() {$" | wc -l)) functions you can use from."
+    echo "[INFO] Library '$(basename ${f%%.*})' is now loaded. ($(funcCount ${f})) functions you can use from."
 done
 
 helper.get_api

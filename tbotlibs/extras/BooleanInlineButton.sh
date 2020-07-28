@@ -20,7 +20,7 @@ BooleanInlineButton.init() {
         file_list="${BOT_LOGS}/${folder}/_log.log"
     fi
 
-    [[ -f ${file_list} ]] || mkdir -p ${file_list}
+    [[ -f ${file_list} ]] || mkdir -p ${file_list%%_*}
     
     _options=$(getopt --options "" --longoptions "true-value:,false-value:,button-name:" -- "$@")
     eval set -- "${_options}"

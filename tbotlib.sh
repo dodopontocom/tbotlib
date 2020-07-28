@@ -38,7 +38,7 @@ if [[ ! $(cat ${LIB_DIR}/.gitignore | grep tbotlibs) ]] && \
     echo -e "\n\n#Telegram bot Libs\ntbotlibs\n-" >> ${LIB_DIR}/.gitignore
 fi
 
-funcCount() { cat "${1}" | grep "() {$" | grep -v "usage" | wc -l; }
+funcCount() { cat "${1}" | grep "() {$" | grep -i "$(basename ${f%%.*})\." | grep -v "usage" | wc -l; }
 
 libs_list=($(find ${LIB_DIR}/tbotlibs -name "*.sh" -not -path "*extras/*"))
 for f in ${libs_list[@]}; do

@@ -45,7 +45,7 @@ BooleanInlineButton.init() {
     echo "=-=-=- from init ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
-tick_to_one.bool_button() {
+tick_to_false.bool_button() {
 	local button2 keyboard2 name
 
     name=$1
@@ -66,7 +66,7 @@ tick_to_one.bool_button() {
     echo "=-=-=- from false ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
-tick_to_zero.bool_button() {
+tick_to_true.bool_button() {
     local button3 keyboard3 name
 
     name=$1

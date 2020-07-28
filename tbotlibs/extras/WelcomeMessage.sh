@@ -2,13 +2,18 @@
 
 WelcomeMessage.send() {
 
-    local message user_message short
-    while [ "${1}" != "" ]; do
-        case "${1}" in
-            "--message") user_message="${2}"; shift 2 ;;
-            "--short") short="on"; shift 1 ;;
-            *) WelcomeMessage.usage; exit -1 ;;
-        esac
+    local message user_message short options
+
+    options=$(getopt --options "" --longoptions "message:,short" -- "$@")
+    eval set -- "${options}"
+    
+    while true ; do
+            case "$1" in
+                    --message) user_message="$2"; shift 2 ;;
+                    --short) short="on"; shift ;;
+                    --) shift; break ;;
+                    *) WelcomeMessage.usage; break ;;
+            esac
     done
 
     if [[ ${message_new_chat_member_id[$id]} ]]; then
@@ -35,18 +40,4 @@ WelcomeMessage.usage() {
     echo.PRETTY "usage: WelcomeMessage.send --message \"<YOUR WELCOME MESSAGE>\""
     echo.PRETTY "option: '--message' \"<your welcome message>\" ~> (required)"
     echo.PRETTY "option: '--short' ~> when you want to avoid standard message header (optional)"
-
-    # local param=$(getopt --name "$FUNCNAME" --options 't:mfsu:l:o:r:d:' \
-    #     --longoptions 'token:,
-    #                 monitor,
-    #                 flush,
-    #                 service,
-    #                 user:,
-    #                 log_file:,
-    #                 log_format:,
-    #                 return:,
-    #                 delimiter:' \
-    #     -- "$@")
-    
-    # eval set -- "$param"
 }

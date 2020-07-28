@@ -30,6 +30,8 @@ WelcomeMessage.send() {
                                 --parse_mode markdown
     elif [[ ! ${message_new_chat_member_id[$id]} ]]; then
         echo.WARN "Welcome message only works when 'message_new_chat_member_id' variable exists."
+    elif [[ ! ${user_message} ]] && [[ ${short} ]]; then
+        echo.WARN "'short' option still requires 'message'. Please provide 'message' (--short --message \"your short message\""
     fi
     
     return 0

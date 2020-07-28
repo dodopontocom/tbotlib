@@ -7,7 +7,7 @@ WelcomeMessage.send() {
     options=$(getopt --options "" --longoptions "message:,short" -- "$@")
     eval set -- "${options}"
     
-    while true ; do
+    while [ "${1}" != "" ] ; do
             case "$1" in
                     --message) user_message="$2"; shift 2 ;;
                     --short) short="on"; shift ;;

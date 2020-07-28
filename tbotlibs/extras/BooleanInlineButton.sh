@@ -10,16 +10,36 @@ _OPTIONS=("it's OFF" "it's ON")
 #======================================================================================
 
 BooleanInlineButton.init() {
-	local button1 keyboard title _options true_value false_value button_name
+	local button1 keyboard title _options true_value false_value button_name file_list folder
+    
+    if [[ ${callback_query_message_chat_id[$id]} ]]; then
+        folder="${callback_query_message_chat_id[$id]//-/}"
+        file_list="${BOT_LOGS}/${folder}/_log.log"
+    else
+        folder="${message_chat_id[$id]//-/}"
+        file_list="${BOT_LOGS}/${folder}/_log.log"
+    fi
     
     _options=$(getopt --options "" --longoptions "true-value:,false-value:,button-name:" -- "$@")
     eval set -- "${_options}"
     
     while [ "${1}" != "" ] ; do
             case "$1" in
-                    --true-value) true_value="$2"; shift 2 ;;
-                    --false-value) false_value="$2"; shift 2 ;;
-                    --button-name) button_name="$2"; shift 2 ;;
+                    --true-value)
+                        true_value="$2"
+                        echo "true_value:${true_value}" >> ${file_list}
+                        shift 2
+                        ;;
+                    --false-value)
+                        false_value="$2"
+                        echo "false_value:${false_value}" >> ${file_list}
+                        shift 2
+                        ;;
+                    --button-name)
+                        button_name="$2"
+                        echo "button_name:${button_name}" >> ${file_list}
+                        shift 2
+                        ;;
                     --) shift  ;;
                     *) BooleanInlineButton.usage; break ;;
             esac
@@ -30,8 +50,8 @@ BooleanInlineButton.init() {
 	button1=''
 
 	ShellBot.InlineKeyboardButton --button 'button1' \
-		--text "${false_value}" \
-		--callback_data "tick_to_true.${button_name}" \
+		--text "$(cat ${file_list} | grep false_value | cut -d':' -f2)" \
+		--callback_data "tick_to_true.$(cat ${file_list} | grep "button_name" | cut -d':' -f2)" \
 		--line 1
 	
 	keyboard="$(ShellBot.InlineKeyboardMarkup -b 'button1')"
@@ -74,7 +94,7 @@ tick_to_true.bool_button() {
 
 	ShellBot.InlineKeyboardButton --button 'button3' \
 		--text "${_OPTIONS[0]}" \
-		--callback_data "tick_to_one.${name}" \
+		--callback_data "tick_to_false.${name}" \
 		--line 1
 
     keyboard3="$(ShellBot.InlineKeyboardMarkup -b 'button3')"

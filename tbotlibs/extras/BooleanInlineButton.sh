@@ -19,8 +19,8 @@ BooleanInlineButton.init() {
             case "$1" in
                     --true-value) true_value="$2"; shift 2; echo $1 ;;
                     --false-value) false_value="$2"; shift 2; echo $1 ;;
-                    --button-name) button_name="$2"; shift 2; echo $1 ;;
-                    --) echo $1; shift ; echo $1; ;;
+                    --button-name) button_name="$2"; shift 2 ;;
+                    --) echo $1; shift 1; echo $1; ;;
                     *) BooleanInlineButton.usage; break ;;
             esac
     done

@@ -10,15 +10,16 @@ _OPTIONS=("it's OFF" "it's ON")
 #======================================================================================
 
 BooleanInlineButton.init() {
-	local button1 keyboard title options true_value false_value
+	local button1 keyboard title options true_value false_value button_name
     
-    options=$(getopt --options "" --longoptions "true-value:,false-value:" -- "$@")
+    options=$(getopt --options "" --longoptions "true-value:,false-value:,button-name:" -- "$@")
     eval set -- "${options}"
     
     while true ; do
             case "$1" in
                     --true-value) true_value="$2"; shift 2 ;;
                     --false-value) false_value="$2"; shift 2 ;;
+                    --button-name) button_name="$2"; shift 2 ;;
                     --) shift ;;
                     *) BooleanInlineButton.usage; break ;;
             esac
@@ -30,7 +31,7 @@ BooleanInlineButton.init() {
 
 	ShellBot.InlineKeyboardButton --button 'button1' \
 		--text "${false_value}" \
-		--callback_data "tick_to_true" \
+		--callback_data "tick_to_true.${button_name}" \
 		--line 1
 	
 	keyboard="$(ShellBot.InlineKeyboardMarkup -b 'button1')"
@@ -40,7 +41,7 @@ BooleanInlineButton.init() {
 				--text "$(echo -e ${title})" \
 				--parse_mode markdown \
                 --reply_markup "$keyboard"
-    callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_true"
+    callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_true.${button_name}"
     echo "=-=-=- from init ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 

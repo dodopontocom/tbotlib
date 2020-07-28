@@ -15,7 +15,7 @@ BooleanInlineButton.init() {
     _options=$(getopt --options "" --longoptions "true-value:,false-value:,button-name:" -- "$@")
     eval set -- "${_options}"
     
-    while true ; do
+    while [ "${1}" != "" ] ; do
             case "$1" in
                     --true-value) true_value="$2"; shift 2; echo $1 ;;
                     --false-value) false_value="$2"; shift 2; echo $1 ;;

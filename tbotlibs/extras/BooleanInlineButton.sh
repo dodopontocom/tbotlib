@@ -10,16 +10,16 @@ _OPTIONS=("it's OFF" "it's ON")
 #======================================================================================
 
 BooleanInlineButton.init() {
-	local button1 keyboard title options true_value false_value button_name
+	local button1 keyboard title _options true_value false_value button_name
     
-    options=$(getopt --options "" --longoptions "true-value:,false-value:" -- "$@")
-    eval set -- "${options}"
+    _options=$(getopt --options "" --longoptions "true-value:,false-value:,button-name:" -- "$@")
+    eval set -- "${_options}"
     
     while true ; do
             case "$1" in
                     --true-value) true_value="$2"; shift 2 ;;
                     --false-value) false_value="$2"; shift 2 ;;
-                    # --button-name) button_name="$2"; shift 2 ;;
+                    --button-name) button_name="$2"; shift 2 ;;
                     --) shift ;;
                     *) BooleanInlineButton.usage; break ;;
             esac

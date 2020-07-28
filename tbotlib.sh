@@ -4,7 +4,7 @@
 
 export API_GIT_URL="https://github.com/shellscriptx/shellbot.git"
 export API_VERSION_RAW_URL="https://raw.githubusercontent.com/shellscriptx/shellbot/master/ShellBot.sh"
-export BOT_LOGS="/home/odroid/BOT_LOGS/"
+export BOT_LOGS="/home/odroid/BOT_LOGS"
 
 LIB_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") >/dev/null 2>&1 && pwd)
 CALLER_SCRIPT_PATH="${LIB_DIR}/$(basename "${BASH_SOURCE[1]}")"

@@ -11,7 +11,7 @@ WelcomeMessage.send() {
             case "$1" in
                     --message) user_message="$2"; shift 2 ;;
                     --short) short="on"; shift ;;
-                    --) shift; break ;;
+                    --) shift ;;
                     *) WelcomeMessage.usage; break ;;
             esac
     done

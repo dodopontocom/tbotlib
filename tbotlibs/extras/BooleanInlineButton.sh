@@ -9,16 +9,28 @@ _COMMAND="${1:-test}"
 _OPTIONS=("it's OFF" "it's ON")
 #======================================================================================
 
-init.bool_button() {
-	local button1 keyboard title name
-    name=$1
+BooleanInlineButton.init() {
+	local button1 keyboard title options true_value false_value
+    
+    options=$(getopt --options "" --longoptions "true-value:,false-value:" -- "$@")
+    eval set -- "${options}"
+    
+    while true ; do
+            case "$1" in
+                    --true-value) true_value="$2"; shift 2 ;;
+                    --false-value) false_value="$2"; shift 2 ;;
+                    --) shift ;;
+                    *) BooleanInlineButton.usage; break ;;
+            esac
+    done
+    
 	title="*Switch:*"
 
 	button1=''
 
 	ShellBot.InlineKeyboardButton --button 'button1' \
-		--text "${_OPTIONS[0]}" \
-		--callback_data "tick_to_one.${name}" \
+		--text "${false_value}" \
+		--callback_data "tick_to_true" \
 		--line 1
 	
 	keyboard="$(ShellBot.InlineKeyboardMarkup -b 'button1')"
@@ -28,7 +40,7 @@ init.bool_button() {
 				--text "$(echo -e ${title})" \
 				--parse_mode markdown \
                 --reply_markup "$keyboard"
-    callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_one.${name}"
+    callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_true"
     echo "=-=-=- from init ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
@@ -72,4 +84,10 @@ tick_to_zero.bool_button() {
                                 --message_id ${callback_query_message_message_id[$id]} \
                                 --reply_markup "$keyboard3"
     echo "=-=-=- from true ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
+}
+
+BooleanInlineButton.usage() {
+    echo.PRETTY "BooleanInlineButton enables a boolean inline button"
+    echo.PRETTY "usage: BooleanInlineButton.init --true-value \"<A string representing TRUE value eg.: ON>\" --false-value \"<false string representation>\""
+    echo.PRETTY "options: '--true-value' '--false-value' ~> (required)"
 }

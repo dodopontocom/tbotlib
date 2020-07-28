@@ -16,7 +16,7 @@ WelcomeMessage.send() {
             esac
     done
 
-    if [[ ${message_new_chat_member_id[$id]} ]]; then
+    if [[ ${user_message} ]] || [[ ${short} ]] && [[ ${message_new_chat_member_id[$id]} ]]; then
         if [[ ! ${short} ]]; then
             message="🆔 [@${message_new_chat_member_username[$id]:-null}]\n"
             message+="🗣 Olá *${message_new_chat_member_first_name[$id]}*"'!!\n\n'
@@ -28,7 +28,7 @@ WelcomeMessage.send() {
         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                                 --text "$(echo -e $message)" \
                                 --parse_mode markdown
-    else
+    elif [[ ! ${message_new_chat_member_id[$id]} ]]; then
         echo.WARN "Welcome message only works when 'message_new_chat_member_id' variable exists."
     fi
     

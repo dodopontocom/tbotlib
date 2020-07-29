@@ -19,10 +19,6 @@ BooleanInlineButton.init() {
         folder="${message_chat_id[$id]//-/}"
         file_list="${BOT_LOGS}/${folder}/_log.log"
     fi
-
-    if [[ ! -f "${file_list}" ]]; then
-            mkdir -p ${file_list%%_*}
-    fi
     
     _options=$(getopt --options "" --longoptions "true-value:,false-value:,button-name:" -- "$@")
     eval set -- "${_options}"
@@ -54,8 +50,8 @@ BooleanInlineButton.init() {
 	button1=''
 
 	ShellBot.InlineKeyboardButton --button 'button1' \
-		--text "$(cat ${file_list} | grep false_value | cut -d':' -f2)" \
-		--callback_data "tick_to_true.$(cat ${file_list} | grep "button_name" | cut -d':' -f2)" \
+		--text "${false_value}" \
+		--callback_data "tick_to_true.${button_name}" \
 		--line 1
 	
 	keyboard="$(ShellBot.InlineKeyboardMarkup -b 'button1')"
@@ -65,8 +61,8 @@ BooleanInlineButton.init() {
 				--text "$(echo -e ${title})" \
 				--parse_mode markdown \
                 --reply_markup "$keyboard"
+
     callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_true.${button_name}"
-    echo "=-=-=- from init ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
 }
 
 tick_to_false.bool_button() {
@@ -87,7 +83,7 @@ tick_to_false.bool_button() {
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
 				--message_id ${callback_query_message_message_id[$id]} \
                             	--reply_markup "$keyboard2"
-    echo "=-=-=- from false ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
+    callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_false.${button_name}"
 }
 
 tick_to_true.bool_button() {
@@ -108,7 +104,8 @@ tick_to_true.bool_button() {
     ShellBot.editMessageReplyMarkup --chat_id ${callback_query_message_chat_id[$id]} \
                                 --message_id ${callback_query_message_message_id[$id]} \
                                 --reply_markup "$keyboard3"
-    echo "=-=-=- from true ${callback_query_message_reply_markup_inline_keyboard_callback_data[$id]}"    
+    
+    callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_true.${button_name}"
 }
 
 BooleanInlineButton.usage() {

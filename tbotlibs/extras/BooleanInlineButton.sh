@@ -69,8 +69,8 @@ tick_to_false.bool_button() {
 	button2=''
 	
 	ShellBot.InlineKeyboardButton --button 'button2' \
-		--text "${_OPTIONS[1]}" \
-		--callback_data "tick_to_zero.${name}" \
+		--text "${false_value}" \
+		--callback_data "tick_to_false.${button_name}" \
 		--line 1
 
 	keyboard2="$(ShellBot.InlineKeyboardMarkup -b 'button2')"
@@ -90,8 +90,8 @@ tick_to_true.bool_button() {
     button3=''
 
 	ShellBot.InlineKeyboardButton --button 'button3' \
-		--text "${_OPTIONS[0]}" \
-		--callback_data "tick_to_false.${name}" \
+		--text "${true_value}" \
+		--callback_data "tick_to_true.${button_name}" \
 		--line 1
 
     keyboard3="$(ShellBot.InlineKeyboardMarkup -b 'button3')"

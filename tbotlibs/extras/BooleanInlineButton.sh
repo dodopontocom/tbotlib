@@ -10,7 +10,7 @@ _OPTIONS=("it's OFF" "it's ON")
 #======================================================================================
 
 BooleanInlineButton.init() {
-	local button1 keyboard title _options true_value false_value button_name file_list folder
+	local button1 keyboard title _options button_name file_list folder
     
     if [[ ${callback_query_message_chat_id[$id]} ]]; then
         folder="${callback_query_message_chat_id[$id]//-/}"

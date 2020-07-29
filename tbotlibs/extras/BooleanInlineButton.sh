@@ -62,10 +62,10 @@ BooleanInlineButton.init() {
     callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_true.${button_name}"
 }
 
-tick_to_false.bool_button() {
-	local button2 keyboard2 name
+BooleanInlineButton.tick_to_false() {
+	local button2 keyboard2 button_name
 
-    name=$1
+    button_name=$1
 	button2=''
 	
 	ShellBot.InlineKeyboardButton --button 'button2' \
@@ -83,10 +83,10 @@ tick_to_false.bool_button() {
     callback_query_message_reply_markup_inline_keyboard_callback_data[$id]="tick_to_false.${button_name}"
 }
 
-tick_to_true.bool_button() {
-    local button3 keyboard3 name
+BooleanInlineButton.tick_to_true() {
+    local button3 keyboard3 button_name
 
-    name=$1
+    button_name=$1
     button3=''
 
 	ShellBot.InlineKeyboardButton --button 'button3' \

@@ -27,17 +27,14 @@ BooleanInlineButton.init() {
             case "$1" in
                     --true-value)
                         true_value="$2"
-                        echo "true_value:${true_value}" >> ${file_list}
                         shift 2
                         ;;
                     --false-value)
                         false_value="$2"
-                        echo "false_value:${false_value}" >> ${file_list}
                         shift 2
                         ;;
                     --button-name)
                         button_name="$2"
-                        echo "button_name:${button_name}" >> ${file_list}
                         shift 2
                         ;;
                     --) shift  ;;

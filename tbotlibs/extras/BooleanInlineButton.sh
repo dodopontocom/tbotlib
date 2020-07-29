@@ -26,11 +26,11 @@ BooleanInlineButton.init() {
     while [ "${1}" != "" ] ; do
             case "$1" in
                     --true-value)
-                        true_value="$2"
+                        export true_value="$2"
                         shift 2
                         ;;
                     --false-value)
-                        false_value="$2"
+                        export false_value="$2"
                         shift 2
                         ;;
                     --button-name)
@@ -84,6 +84,8 @@ BooleanInlineButton.tick_to_false() {
 }
 
 BooleanInlineButton.tick_to_true() {
+
+    echo "---------aaaaa ${true_value}"
     local button3 keyboard3 button_name
 
     button_name=$1

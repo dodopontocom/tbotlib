@@ -26,15 +26,15 @@ BooleanInlineButton.init() {
     while [ "${1}" != "" ] ; do
             case "$1" in
                     --true-value)
-                        export true_value="$2"
+                        declare -g true_value="$2"
                         shift 2
                         ;;
                     --false-value)
-                        export false_value="$2"
+                        declare -g false_value="$2"
                         shift 2
                         ;;
                     --button-name)
-                        button_name="$2"
+                        declare -g button_name="$2"
                         shift 2
                         ;;
                     --) shift  ;;

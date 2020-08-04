@@ -201,3 +201,7 @@ helper.random() {
 
 	echo "${random_number}"
 }
+
+tbotlib.polling() {
+    
+}

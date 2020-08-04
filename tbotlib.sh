@@ -64,8 +64,3 @@ helper.get_api
 exitOnError "Error while trying to download API Shellbot" $?
 helper.validate_vars TELEGRAM_TOKEN
 exitOnError "You must configure and export 'TELEGRAM_TOKEN' variable" $?
-
-source ${LIB_DIR}/tbotlibs/API/ShellBot.sh
-echo.SUCCESS "Telegram bot lib is successfully loaded"
-ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
-echo.SUCCESS "Telegram bot is up and running... enjoy"

@@ -204,6 +204,11 @@ helper.random() {
 
 tbotlib.polling() {
 
+    source ../API/ShellBot.sh
+    echo.SUCCESS "Telegram bot lib is successfully loaded"
+    ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
+    echo.SUCCESS "Telegram bot is up and running... enjoy"
+
     while true
     do
         ShellBot.getUpdates --limit 100 --offset $(ShellBot.OffsetNext) --timeout 30

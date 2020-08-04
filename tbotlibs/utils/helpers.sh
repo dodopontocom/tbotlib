@@ -204,7 +204,7 @@ helper.random() {
 
 tbotlib.polling() {
 
-    source ../API/ShellBot.sh
+    source ${LIB_DIR}/tbolibs/API/ShellBot.sh
     echo.SUCCESS "Telegram bot lib is successfully loaded"
     ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
     echo.SUCCESS "Telegram bot is up and running... enjoy"

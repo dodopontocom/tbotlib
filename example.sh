@@ -78,13 +78,13 @@ while : ; do
             
         for id in $(ShellBot.ListUpdates); do
             (
-            ShellBot.watchHandle --callback_data ${callback_query_data[$id]}
 
             if [[ ${message_entities_type[$id]} == bot_command ]]; then
                 case ${message_text[$id]%%@*} in
                     /start)
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "🤖 Bot ao seu dispor ☝️" ;;
                     /diario)
+                        echo ${message_entities_type[$id]}
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                                             --text "*Escolha as Emoções abaixo*" \
                                             --parse_mode markdown \

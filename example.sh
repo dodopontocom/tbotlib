@@ -48,7 +48,7 @@ nota.done() {
     local nota folder _save name _day
     nota="${1}"
     _day="$(convert.weekdayPtbr $(date +%u))"
-    folder="${message_chat_id[$id]//-/}"
+    folder="${message_from_id[$id]//-/}"
     _save="${BOT_EMOCOES_FILE}/${folder}/_list.log"
 
     if [[ ${message_chat_first_name[$id]} ]]; then

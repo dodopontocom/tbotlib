@@ -102,7 +102,6 @@ while : ; do
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$(echo -e ${message})" --parse_mode markdown
                     ;; 
                     /diario)
-                        echo ${message_from_is_bot}
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                                             --text "*Escolha as Emoções abaixo*" \
                                             --parse_mode markdown \

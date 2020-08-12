@@ -42,6 +42,7 @@ nota.start() {
 
     echo "${emocao}" > /tmp/${message_from_id[$id]//-/}
 
+    ShellBot.deleteMessage --chat_id ${message_reply_to_message_chat_id[$id]} --message_id ${message_reply_to_message_message_id[$id]}
     ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
     ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                         --text "$(echo -e ${_MESSAGE})" \

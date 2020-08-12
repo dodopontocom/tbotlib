@@ -94,10 +94,11 @@ while : ; do
                                             --reply_markup "$ch_keyboard1"
                 esac
             fi
-# && [[ ! ${message_reply_to_message_chat_id} ]] \
+
             if [[ ${message_text[$id]} ]] \
                     && [[ ! ${message_entities_type[$id]} ]] \
-                    && [[ ${message_from_is_bot} == false ]]; then
+                    && [[ ! ${message_reply_to_message_chat_id} ]] \
+                    && [[ ${message_chat_type} == group ]]; then
                 while read line; do
                     if [[ ${message_text[$id]} == ${line} ]]; then
                         case ${message_text[$id]} in

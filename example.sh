@@ -35,7 +35,7 @@ convert.weekdayPtbr() {
   esac
 }
 
-nota.register() {
+nota.start() {
 
     ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
     ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
@@ -100,7 +100,7 @@ while : ; do
                 while read line; do
                     if [[ ${message_text[$id]} == ${line} ]]; then
                         case ${message_text[$id]} in
-                            ${line}) nota.register ;;
+                            ${line}) nota.start ;;
                         esac
                     fi
                 done < ${BASEDIR}/emocoes.txt

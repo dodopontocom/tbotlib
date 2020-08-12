@@ -201,36 +201,3 @@ helper.random() {
 
 	echo "${random_number}"
 }
-
-tbotlib.polling() {
-
-    source ${LIB_DIR}/tbotlibs/API/ShellBot.sh
-    echo.SUCCESS "Telegram bot lib is successfully loaded"
-    ShellBot.init --token "${TELEGRAM_TOKEN}" --monitor --flush
-    echo.SUCCESS "Telegram bot is up and running... enjoy"
-
-    while true
-    do
-        ShellBot.getUpdates --limit 100 --offset $(ShellBot.OffsetNext) --timeout 30
-
-        for id in $(ShellBot.ListUpdates)
-        do
-            (
-                ShellBot.watchHandle --callback_data ${callback_query_data[$id]}
-
-                [[ ${message_new_chat_member_id[$id]} ]] && WelcomeMessage.send --short --message "I like you"
-                
-                case ${callback_query_data[$id]} in
-                    tick_to_false.${motion_button}) BooleanInlineButton.tick_to_false ${motion_button} ;;
-                    tick_to_true.${motion_button}) BooleanInlineButton.tick_to_true ${motion_button} ;;
-                esac
-                
-                if [[ ${message_entities_type[$id]} == bot_command ]]; then
-                    if [[ "$(echo ${message_text[$id]%%@*} | grep "^\/switch" )" ]]; then
-                        BooleanInlineButton.init --true-value "ON" --false-value "OFF" --button-name "${motion_button}"
-                    fi
-                fi
-            ) &
-        done
-    done
-}

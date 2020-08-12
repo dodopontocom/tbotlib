@@ -92,7 +92,10 @@ while : ; do
                 esac
             fi
 
-            if [[ ${message_text[$id]} ]] && [[ ! ${message_entities_type[$id]} ]] && [[ ! ${message_reply_to_message_chat_id} ]]; then
+            if [[ ${message_text[$id]} ]] \
+                    && [[ ! ${message_entities_type[$id]} ]] \
+                    && [[ ! ${message_reply_to_message_chat_id} ]] \
+                    && [[ ${message_from_is_bot} == false ]]; then
                 while read line; do
                     if [[ ${message_text[$id]} == ${line} ]]; then
                         case ${message_text[$id]} in

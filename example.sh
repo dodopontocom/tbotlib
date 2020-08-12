@@ -84,7 +84,7 @@ while : ; do
                     /start)
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "🤖 Bot ao seu dispor ☝️" ;;
                     /diario)
-                        echo ${message_entities_type[$id]}
+                        echo ${message_from_is_bot}
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                                             --text "*Escolha as Emoções abaixo*" \
                                             --parse_mode markdown \
@@ -107,7 +107,7 @@ while : ; do
 
             if [[ ${message_reply_to_message_message_id[$id]} ]]; then
                 case ${message_reply_to_message_text[$id]} in
-                    '📝 Adicionar Nota:') echo oi; nota.done "${message_text[$id]}" ;;
+                    '📝 Adicionar Nota:') echo ${message_from_is_bot}; nota.done "${message_text[$id]}" ;;
                 esac
             fi
 

@@ -16,7 +16,7 @@ btn_opcoes='
 ["Inveja", "Ciúme", "Ansiedade"],
 ["Medo"]
 '
-ch_keyboard1="$(ShellBot.ReplyKeyboardMarkup --button 'btn_opcoes' --one_time_keyboard true)"
+keyboard="$(ShellBot.ReplyKeyboardMarkup --button 'btn_opcoes' --one_time_keyboard true)"
 
 _MESSAGE="\`📝 Adicionar Nota:\`"
 
@@ -91,14 +91,13 @@ while : ; do
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                                             --text "*Escolha as Emoções abaixo*" \
                                             --parse_mode markdown \
-                                            --reply_markup "$ch_keyboard1"
+                                            --reply_markup "$keyboard"
                 esac
             fi
 
             if [[ ${message_text[$id]} ]] \
                     && [[ ! ${message_entities_type[$id]} ]] \
-                    && [[ ! ${message_reply_to_message_chat_id} ]] \
-                    && [[ ${message_chat_type} == group ]]; then
+                    && [[ ! ${message_reply_to_message_chat_id} ]]; then
                 while read line; do
                     if [[ ${message_text[$id]} == ${line} ]]; then
                         case ${message_text[$id]} in

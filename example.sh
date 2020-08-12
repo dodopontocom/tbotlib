@@ -104,7 +104,7 @@ while : ; do
 
             if [[ ${message_reply_to_message_message_id[$id]} ]]; then
                 case ${message_reply_to_message_text[$id]} in
-                    '📝 Adicionar Nota:') nota.done "${message_text[$id]}" ;;
+                    '📝 Adicionar Nota:') echo oi; nota.done "${message_text[$id]}" ;;
                 esac
             fi
 

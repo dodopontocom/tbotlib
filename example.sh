@@ -92,13 +92,17 @@ while : ; do
             if [[ ${message_entities_type[$id]} == bot_command ]]; then
                 case ${message_text[$id]%%@*} in
                     /start)
-                        ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "🤖 Bot ao seu dispor ☝️" ;;
+                        message="🤖 Bot ao seu dispor ☝️\n"
+                        message+="Aperte aqui para começar \`/diario\`"
+                        ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$(echo -e ${message})" --parse_mode markdown
+                    ;; 
                     /diario)
                         echo ${message_from_is_bot}
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                                             --text "*Escolha as Emoções abaixo*" \
                                             --parse_mode markdown \
                                             --reply_markup "$keyboard"
+                    ;;
                 esac
             fi
 

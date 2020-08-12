@@ -54,7 +54,7 @@ nota.done() {
     if [[ ${message_chat_first_name[$id]} ]]; then
         name="${message_chat_first_name[$id]}"
     else
-        name="${message_chat_username[$id]}"
+        name="${message_from_first_name[$id]}"
     fi        
     if [[ ! -f "${_save}" ]]; then
         mkdir -p ${_save%%_*}

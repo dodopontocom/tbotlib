@@ -42,8 +42,11 @@ nota.start() {
 
     echo "${emocao}" > /tmp/${message_from_id[$id]//-/}
 
-    ShellBot.deleteMessage --chat_id ${message_reply_to_message_chat_id[$id]} --message_id ${message_reply_to_message_message_id[$id]}
-    ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
+    [[ ${message_reply_to_message_chat_id[$id]} ]] && \
+        ShellBot.deleteMessage --chat_id ${message_reply_to_message_chat_id[$id]} --message_id ${message_reply_to_message_message_id[$id]}
+    [[ ${message_chat_id[$id]} ]] && \
+        ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
+
     ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
                         --text "$(echo -e ${_MESSAGE})" \
                         --parse_mode markdown \
@@ -68,8 +71,10 @@ nota.done() {
 
     echo "$(date +%d/%m/%Y)|$(date +%H:%M)|$(head -1 /tmp/${folder})|${_day}|${name}|${nota}" >> ${_save}
 
-    ShellBot.deleteMessage --chat_id ${message_reply_to_message_chat_id[$id]} --message_id ${message_reply_to_message_message_id[$id]}
-    ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
+    [[ ${message_reply_to_message_chat_id[$id]} ]] && \
+        ShellBot.deleteMessage --chat_id ${message_reply_to_message_chat_id[$id]} --message_id ${message_reply_to_message_message_id[$id]}
+    [[ ${message_chat_id[$id]} ]] && \
+        ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
 
     message="*$(tail -1 ${_save} | cut -d'|' -f4) ($(tail -1 ${_save} | cut -d'|' -f1)) - $(tail -1 ${_save} | cut -d'|' -f2)hs*\n"
     message+="*autor:* ($(tail -1 ${_save} | cut -d'|' -f5))\n"

@@ -80,6 +80,8 @@ while : ; do
         for id in $(ShellBot.ListUpdates); do
             (
 
+            ShellBot.watchHandle --callback_data ${callback_query_data[$id]}
+
             if [[ ${message_entities_type[$id]} == bot_command ]]; then
                 case ${message_text[$id]%%@*} in
                     /start)

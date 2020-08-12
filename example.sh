@@ -4,6 +4,7 @@ export BASEDIR="$(cd $(dirname ${BASH_SOURCE[0]}) >/dev/null 2>&1 && pwd)"
 source ${BASEDIR}/.definitions.sh
 source ${BASEDIR}/tbotlib.sh
 
+btn_opcoes=''
 btn_opcoes='
 ["Felicidade", "Interesse", "Empolgação"],
 ["Cuidado", "Afeição", "Amor"],

@@ -64,7 +64,7 @@ nota.done() {
     ShellBot.deleteMessage --chat_id ${message_reply_to_message_chat_id[$id]} --message_id ${message_reply_to_message_message_id[$id]}
     ShellBot.deleteMessage --chat_id ${message_chat_id[$id]} --message_id ${message_message_id[$id]}
 
-    message="*$(tail -1 ${_save} | cut -d'|' -f3) ($(tail -1 ${_save})) - $(tail -1 ${_save} | cut -d'|' -f2 | tr '-' ':')hs*\n"
+    message="*$(tail -1 ${_save} | cut -d'|' -f3) ($(tail -1 ${_save} | cut -d'-' -f1)) - $(tail -1 ${_save} | cut -d'|' -f2 | tr '-' ':')hs*\n"
     message+="*autor:* ($(tail -1 ${_save} | cut -d'|' -f4))\n"
     message+="*nota:* \`$(tail -1 ${_save} | cut -d'|' -f5)\`"
 

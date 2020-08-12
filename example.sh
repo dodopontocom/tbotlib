@@ -109,7 +109,16 @@ while : ; do
 
             if [[ ${message_reply_to_message_message_id[$id]} ]]; then
                 case ${message_reply_to_message_text[$id]} in
-                    '📝 Adicionar Nota:') echo ${message_from_is_bot}; nota.done "${message_text[$id]}" ;;
+                    '📝 Adicionar Nota:') nota.done "${message_text[$id]}" ;;
+                    'Escolha as Emoções abaixo')
+                        while read line; do
+                            if [[ ${message_text[$id]} == ${line} ]]; then
+                                case ${message_text[$id]} in
+                                    ${line}) nota.start ;;
+                                esac
+                            fi
+                        done < ${BASEDIR}/emocoes.txt
+                    ;;
                 esac
             fi
 

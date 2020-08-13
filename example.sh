@@ -19,8 +19,8 @@ btn_opcoes='
 keyboard="$(ShellBot.ReplyKeyboardMarkup --button 'btn_opcoes' --one_time_keyboard true)"
 
 _MESSAGE="\`📝 Adicionar Nota:\`"
-_HELP="Olá. Bom, eu funciono assim:\nVocê me envia o comando /diario aí então eu te mostro uma lista de emoções para você registrar\n \
-    Depois eu peço para que você escreva uma nota sobre a tal emoção e PRONTO.\nAssim você pode sempre consultar comigo, eu serei o seu Diário das Emoções 🤖☝️"
+_HELP="*Olá*. Bom, eu funciono assim:\nVocê me envia o comando /diario aí então eu te mostro uma lista de emoções para você registrar.\n \
+    Depois eu peço para que você escreva uma nota sobre a tal emoção e *É ISSO!!!*.\nAssim você pode sempre consultar comigo.\nEu serei o seu Diário das Emoções 🤖☝️"
 
 #e.g. : convert.weekdayPtbr $(date +%u)
 convert.weekdayPtbr() {
@@ -100,6 +100,8 @@ while : ; do
                 case ${message_text[$id]%%@*} in
                     /start)
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$(echo -e ${_HELP})" --parse_mode markdown
+                        sleep 5
+                        ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "Comece: /diario" --parse_mode markdown
                     ;; 
                     /diario)
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \

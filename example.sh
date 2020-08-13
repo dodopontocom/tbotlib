@@ -19,6 +19,8 @@ btn_opcoes='
 keyboard="$(ShellBot.ReplyKeyboardMarkup --button 'btn_opcoes' --one_time_keyboard true)"
 
 _MESSAGE="\`📝 Adicionar Nota:\`"
+_HELP="Olá. Bom, eu funciono assim:\nVocê me envia o comando /diario aí então eu te mostro uma lista de emoções para você registrar\n \
+    Depois eu peço para que você escreva uma nota sobre a tal emoção e PRONTO.\nAssim você pode sempre consultar comigo, eu serei o seu Diário das Emoções 🤖☝️"
 
 #e.g. : convert.weekdayPtbr $(date +%u)
 convert.weekdayPtbr() {
@@ -97,9 +99,7 @@ while : ; do
             if [[ ${message_entities_type[$id]} == bot_command ]]; then
                 case ${message_text[$id]%%@*} in
                     /start)
-                        message="🤖 Bot ao seu dispor ☝️\n"
-                        message+="Aperte aqui para começar \`/diario\`"
-                        ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$(echo -e ${message})" --parse_mode markdown
+                        ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$(echo -e ${_HELP})" --parse_mode markdown
                     ;; 
                     /diario)
                         ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
